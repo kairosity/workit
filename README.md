@@ -1,3 +1,3 @@
-# Workit - A task project management solution for small teams.
+# Workit - A project management solution for small teams.
 
 Built with React & Firebase
