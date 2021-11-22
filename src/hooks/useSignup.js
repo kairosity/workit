@@ -41,8 +41,10 @@ export const useSignup = () => {
       // add display name to user
       await res.user.updateProfile({ 
         displayName: displayName,
-        photoUrl: imgUrl
+        photoURL: imgUrl
       })
+
+      console.log(res.user)
 
       // create a user document
       // creating a new doc inside the users collection for every user that signs up.
@@ -50,7 +52,7 @@ export const useSignup = () => {
       await projectFirestore.collection('users').doc(res.user.uid).set({
         online: true,
         displayName: displayName,
-        photoUrl: imgUrl
+        photoURL: imgUrl
       })
 
       // dispatch login action
