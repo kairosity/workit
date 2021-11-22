@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { projectAuth, projectStorage } from '../firebase/config'
+import { projectAuth, projectStorage, projectFirestore } from '../firebase/config'
 import { useAuthContext } from './useAuthContext'
 
 export const useSignup = () => {
@@ -36,8 +36,19 @@ export const useSignup = () => {
       // a reference to that img obj and then getDownloadURL to get the path to the url.
       const imgUrl = await img.ref.getDownloadURL()
 
+      console.log(imgUrl)
+
       // add display name to user
       await res.user.updateProfile({ 
+        displayName: displayName,
+        photoUrl: imgUrl
+      })
+
+      // create a user document
+      // creating a new doc inside the users collection for every user that signs up.
+      // id of that doc is the user id to connect the user to the doc
+      await projectFirestore.collection('users').doc(res.user.uid).set({
+        online: true,
         displayName: displayName,
         photoUrl: imgUrl
       })
