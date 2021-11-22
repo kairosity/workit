@@ -13,6 +13,7 @@ import Login from './pages/login/Login'
 import Project from './pages/project/Project'
 import Signup from './pages/signup/Signup'
 import Sidebar from './components/Sidebar';
+import OnlineUsers from './components/OnlineUsers';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
               <Route path='/signup' element={(user && <Navigate to='/'/>) || (!user && <Signup />)} />
             </Routes>
           </div>
+          {user && <OnlineUsers />}
         </BrowserRouter>
       )}
     </div>
