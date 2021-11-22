@@ -9,9 +9,49 @@ export default function Signup() {
     const [password, setPassword] = useState('')
     const [displayName, setDisplayName] = useState('')
     const [thumbnail, setThumbnail] = useState(null)
+    const [thumbnailError, setThumbnailError] = useState(null)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(email, password, displayName, thumbnail)
+    }
+
+    // func to handle avatar image uploads
+    const handleFileChange = (e) => {
+        setThumbnail(null)
+        let selected = e.target.files[0]
+        console.log(selected)
+
+        // ensure that a file is selected
+        if(!selected){
+            setThumbnailError('Please select a file.')
+            return
+        }
+
+        // ensure that the file is an image
+        if(!selected.type.includes('image')){
+            setThumbnailError('Selected file must be an image.')
+            return
+        }
+        
+        // ensure image is smaller than 100kb
+        if(selected.size > 100000){
+            setThumbnailError('Selected image filesize must be less than 100kb')
+            return
+        }
+
+        setThumbnailError(null)
+        setThumbnail(selected)
+        console.log('thumbnail updated')
+
+
+    }
 
     return (
-        <form className='auth-form'>
+        <form 
+            className='auth-form'
+            onSubmit={handleSubmit}
+        >
             <h2>Sign up</h2>
             <label>
                 <span>email:</span>
@@ -45,7 +85,9 @@ export default function Signup() {
                 <input
                     type="file"
                     required
+                    onChange={handleFileChange}
                 />
+                {thumbnailError && <div className="error">{thumbnailError}</div>}
             </label>
             <button className='btn'>Sign Up</button>
         </form>
