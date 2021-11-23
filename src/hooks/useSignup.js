@@ -36,8 +36,6 @@ export const useSignup = () => {
       // a reference to that img obj and then getDownloadURL to get the path to the url.
       const imgUrl = await img.ref.getDownloadURL()
 
-      console.log(imgUrl)
-
       // add display name to user
       await res.user.updateProfile({ 
         displayName: displayName,

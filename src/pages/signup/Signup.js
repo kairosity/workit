@@ -22,7 +22,6 @@ export default function Signup() {
     const handleFileChange = (e) => {
         setThumbnail(null)
         let selected = e.target.files[0]
-        console.log(selected)
 
         // ensure that a file is selected
         if(!selected){
